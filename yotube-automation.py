@@ -15,7 +15,10 @@ wait = WebDriverWait(Driver, 10)
 
 search_box = wait.until(ec.visibility_of_element_located((By.XPATH, "//input[@id='search']")))
 search_box.send_keys("Selenium crash course")
-search_button = wait.until(ec.visibility_of_element_located((By.XPATH, "//button[@id='search-icon-legacy']")))
+
+# use of ID to locate elements
+
+search_button = wait.until(ec.visibility_of_element_located((By.ID, 'search-icon-legacy')))
 search_button.click()
 play_video = wait.until(ec.visibility_of_element_located((By.XPATH, "//a[@id='video-title'][1]")))
 play_video.click()
@@ -24,10 +27,7 @@ play_video.click()
 
 play_button = wait.until(ec.visibility_of_element_located((By.CLASS_NAME, "ytp-play-button")))
 play_button.click()
-
-# locating element by id
-
-# mini_play_button = wait.until(ec.visibility_of_element_located((By.ID, 'ytp-miniplayer-button')))
-# mini_play_button.click()
+mini_play_button = wait.until(ec.visibility_of_element_located((By.CLASS_NAME, 'ytp-next-button')))
+mini_play_button.click()
 print(Driver.title)
 time.sleep(50)
