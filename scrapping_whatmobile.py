@@ -28,16 +28,21 @@ for m in range(len(mobile_names)):
     prices_data.append(mobile_prices[m].text)
     hrefs.append(mobile_companies[m].get_attribute("href"))
 
-# for i in hrefs:
-#     Driver.get(images_data[i])
-#     Specs = Driver.find_element(by=By.XPATH, value="//div[@id='service-two']/section")
-#     spec_data.append(Specs.text)
 
 for i in range(len(hrefs)):
     Driver.get(hrefs[i])
     mobile_images = Driver.find_elements(by=By.XPATH, value="//a[@class='link-text']")
     mobile_names = Driver.find_elements(by=By.XPATH, value="//h6[@class='mt-3']/a")
     mobile_prices = Driver.find_elements(by=By.XPATH, value="//div[@class='price small']")
+    for j in range(len(mobile_names)):
+        images_data.append(mobile_images[j].get_attribute("href"))
+        names_data.append(mobile_names[j].text)
+        prices_data.append(mobile_prices[j].text)
+
+for i in range(len(images_data)):
+    Driver.get(images_data[i])
+    Specs = Driver.find_element(by=By.XPATH, value="//div[@id='service-two']/section")
+    spec_data.append(Specs.text)
 #
 # for i in range(len(mobile_companies)):
 #     time.sleep(3)
@@ -48,10 +53,10 @@ for i in range(len(hrefs)):
     # print(your_element)
     # time.sleep(3)
 
-# data = {"Name": names_data, "Price": prices_data, "Images": images_data, "Specs": spec_data}
-#
-# df = pd.DataFrame(data=data)
-# df.to_excel("Mobile_data.xlsx")
-# print(Driver.title)
+data = {"Name": names_data, "Price": prices_data, "Images": images_data, "Specs": spec_data}
+
+df = pd.DataFrame(data=data)
+df.to_excel("Mobile_data.xlsx")
+print(Driver.title)
 print(hrefs)
 time.sleep(10)
