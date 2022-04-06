@@ -1,11 +1,9 @@
 import time
 import pandas as pd
-import undetected_chromedriver as uc
+from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.webdriver.support.wait import WebDriverWait
 
 model_no = []
 release_date = []
@@ -58,13 +56,10 @@ hrefs = []
 images_data = []
 spec_data = []
 names_data = []
-chrome_options = Options()
-chrome_options.add_argument("—disable-gpu")
-chrome_options.add_argument("--headless")
-Driver = uc.Chrome(Options=chrome_options)
+
+Driver = webdriver.Firefox()
 Driver.maximize_window()
 Driver.get('https://whatmobile.web.pk/')
-ignored_exceptions = (NoSuchElementException, StaleElementReferenceException,)
 
 mobile_images = Driver.find_elements(by=By.XPATH, value="//div[@class='product-grid8']/div/a")
 mobile_names = Driver.find_elements(by=By.XPATH, value="//div[@class='product-grid8']/b/a")

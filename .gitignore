@@ -12,5 +12,7 @@
 .idea/selenium-automation.iml
 *.idea/vcs.xml
 .idea/vcs.xml
+geckodriver.log
+*geckodriver.log
 *.idea/workspace.xml
 .idea/workspace.xml
