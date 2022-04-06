@@ -58,7 +58,10 @@ hrefs = []
 images_data = []
 spec_data = []
 names_data = []
-Driver = uc.Chrome()
+chrome_options = Options()
+chrome_options.add_argument("—disable-gpu")
+chrome_options.add_argument("--headless")
+Driver = uc.Chrome(Options=chrome_options)
 Driver.maximize_window()
 Driver.get('https://whatmobile.web.pk/')
 ignored_exceptions = (NoSuchElementException, StaleElementReferenceException,)
@@ -69,36 +72,35 @@ mobile_companies = Driver.find_elements(by=By.XPATH, value="//ul[@class='brb']/a
 
 for m in range(len(mobile_names)):
     images_data.append(mobile_images[m].get_attribute("href"))
-    # names_data.append(mobile_names[m].text)
-    # hrefs.append(mobile_companies[m].get_attribute("href"))
+    names_data.append(mobile_names[m].text)
+    hrefs.append(mobile_companies[m].get_attribute("href"))
 
-# for i in range(len(hrefs)):
-#     Driver.get(hrefs[i])
-#     mobile_images = Driver.find_elements(by=By.XPATH, value="//a[@class='link-text']")
-#     mobile_names = Driver.find_elements(by=By.XPATH, value="//h6[@class='mt-3']/a")
-#     for j in range(len(mobile_names)):
-#         images_data.append(mobile_images[j].get_attribute("href"))
-#         names_data.append(mobile_names[j].text)
+for i in range(len(hrefs)):
+    Driver.get(hrefs[i])
+    mobile_images = Driver.find_elements(by=By.XPATH, value="//a[@class='link-text']")
+    mobile_names = Driver.find_elements(by=By.XPATH, value="//h6[@class='mt-3']/a")
+    for j in range(len(mobile_names)):
+        images_data.append(mobile_images[j].get_attribute("href"))
+        names_data.append(mobile_names[j].text)
 
-for i in range(len(images_data)):
+for i in range(50):
     Driver.get(images_data[i])
     Driver.execute_script("window.scrollTo(0, 800)")
     button = WebDriverWait(Driver, 20).until(
         ec.element_to_be_clickable((By.XPATH, "//li/a[contains(text(),'View Full Specs')]")))
 
     button.click()
-    Driver.execute_script("window.scrollTo(0, 100)")
-    time.sleep(3)
-    Specs = Driver.find_element(by=By.XPATH,
-                                value="//span[@class='mmml-5']")
-    print(Specs.text)
-    # model_no.append(Specs[3].text)
-    # print(release_date.append(Specs[4].text))
-    # status.append(Specs[5].text)
-    # operating_system.append(Specs[6].text)
-    # technology.append(Specs[7].text)
-    # sim_info.append(Specs[8].text)
-    # lock_security.append(Specs[9].text)
+    Driver.implicitly_wait(3)
+    # Driver.execute_script("window.scrollTo(0, 100)")
+    Specs = Driver.find_elements(by=By.XPATH,
+                                 value="//span[@class='mmml-5']")
+    print(model_no.append(Specs[0].text))
+    release_date.append(Specs[1].text)
+    status.append(Specs[2].text)
+    operating_system.append(Specs[3].text)
+    technology.append(Specs[4].text)
+    sim_info.append(Specs[5].text)
+    # print(lock_security.append(Specs[6].text))
     # best_for.append(Specs[10].text)
     # price.append(Specs[11].text)
     # dimensions.append(Specs[12].text)
@@ -138,59 +140,59 @@ for i in range(len(images_data)):
     # g5_net.append(Specs[46].text)
     # net_speed.append(Specs[47].text)
 
-# data = {
-#     "Name": names_data,
-#     "Image": images_data,
-#     "Model No.": model_no,
-#     "Release Date": release_date,
-#     "Status": status,
-#     "Operating System": operating_system,
-#     "Technology": technology,
-#     "Sim Info": sim_info,
-#     "Lock Security": lock_security,
-#     "Best For": best_for,
-#     "Price": price,
-#     "Dimensions": dimensions,
-#     "Weight In Grams": weight,
-#     "Colour Options": coulour_options,
-#     "Build Material": build_material,
-#     "Certification": certification,
-#     "Protection":protection
-#     "Display Type": display_type,
-#     "Screen Size": screen_size,
-#     "Resolution": resolution,
-#     "PPI": ppi,
-#     "Refresh Rate": refresh_rate,
-#     "Chipest": chipest,
-#     "CPU": cpu,
-#     "GPU": gpu,
-#     "Slot": slot,
-#     "RAM and ROM": ram_rom,
-#     "Rear Camera Setup": rear_camera_setup,
-#     "Main Sensor": main_sensor,
-#     "Rear Camera Sensor Type": sensor_type,
-#     "Rear Camera Aperture": rear_camera_aperture,
-#     "Rear Camera Features": rear_camera_fatures,
-#     "Video Rec.": video_rec,
-#     "Front Camera Setup": front_camera_setup,
-#     "Front Sensor": fron_sensor,
-#     "Front Camera Sensor Type": front_camera_sensor_type,
-#     "Front Camera Mechanism": front_camera_mechanism
-#     "Fron Camera Features": front_camera_features,
-#     "Battery Type": batery_type,
-#     "Capacity": batery_capacity,
-#     "Fast Charge": fast_charge,
-#     "Wireless Charge": wireless_charge,
-#     "Blutooth": blutooth,
-#     "WiFi": wifi,
-#     "More": more,
-#     "3G Net.": g3_net,
-#     "4G Net.": g4_net,
-#     "5G Net.": g5_net,
-#     "Net. Speed": net_speed
-# }
-#
-# df = pd.DataFrame(data=data)
-# df.to_excel("Mobile_data.xlsx")
-# print(Driver.title)
+data = {
+    "Name": names_data,
+    "Image": images_data,
+    "Model No.": model_no,
+    "Release Date": release_date,
+    "Status": status,
+    "Operating System": operating_system,
+    "Technology": technology,
+    "Sim Info": sim_info,
+    "Lock Security": lock_security,
+    # "Best For": best_for,
+    # "Price": price,
+    # "Dimensions": dimensions,
+    # "Weight In Grams": weight,
+    # "Colour Options": coulour_options,
+    # "Build Material": build_material,
+    # "Certification": certification,
+    # "Protection":protection
+    # "Display Type": display_type,
+    # "Screen Size": screen_size,
+    # "Resolution": resolution,
+    # "PPI": ppi,
+    # "Refresh Rate": refresh_rate,
+    # "Chipest": chipest,
+    # "CPU": cpu,
+    # "GPU": gpu,
+    # "Slot": slot,
+    # "RAM and ROM": ram_rom,
+    # "Rear Camera Setup": rear_camera_setup,
+    # "Main Sensor": main_sensor,
+    # "Rear Camera Sensor Type": sensor_type,
+    # "Rear Camera Aperture": rear_camera_aperture,
+    # "Rear Camera Features": rear_camera_fatures,
+    # "Video Rec.": video_rec,
+    # "Front Camera Setup": front_camera_setup,
+    # "Front Sensor": fron_sensor,
+    # "Front Camera Sensor Type": front_camera_sensor_type,
+    # "Front Camera Mechanism": front_camera_mechanism
+    # "Fron Camera Features": front_camera_features,
+    # "Battery Type": batery_type,
+    # "Capacity": batery_capacity,
+    # "Fast Charge": fast_charge,
+    # "Wireless Charge": wireless_charge,
+    # "Blutooth": blutooth,
+    # "WiFi": wifi,
+    # "More": more,
+    # "3G Net.": g3_net,
+    # "4G Net.": g4_net,
+    # "5G Net.": g5_net,
+    # "Net. Speed": net_speed
+}
+
+df = pd.DataFrame(data=data)
+df.to_excel("mb.xlsx")
+print(Driver.title)
 time.sleep(10)
