@@ -32,11 +32,34 @@ for mobile in mobile_companies:
     mobile_names = Driver.find_elements(by=By.XPATH, value="//div[@class='makers']/ul/li/a/strong/span")
     mobile_link = Driver.find_elements(by=By.XPATH, value="//div[@class='makers']/ul/li/a")
     Specs = Driver.find_elements(by=By.XPATH, value="//div[@class='makers']/ul/li/a/img")
-
+    time.sleep(2)
     for i in range(len(mobile_names)):
         mobiles.append(mobile_names[i].text)
         links.append(mobile_link[i].get_attribute("href"))
         Spec.append(Specs[i].get_attribute("title"))
+    Driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+    try:
+        next_page = Driver.find_element(by=By.XPATH, value="//a[@class='pages-next']")
+    except:
+        next_page = None
+    while next_page:
+        next_page.click()
+        time.sleep(2)
+        mobile_names = Driver.find_elements(by=By.XPATH, value="//div[@class='makers']/ul/li/a/strong/span")
+        mobile_link = Driver.find_elements(by=By.XPATH, value="//div[@class='makers']/ul/li/a")
+        Specs = Driver.find_elements(by=By.XPATH, value="//div[@class='makers']/ul/li/a/img")
+
+        for i in range(len(mobile_names)):
+            mobiles.append(mobile_names[i].text)
+            links.append(mobile_link[i].get_attribute("href"))
+            Spec.append(Specs[i].get_attribute("title"))
+
+        Driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+        try:
+            next_page = Driver.find_element(by=By.XPATH, value="//a[@class='pages-next']")
+        except:
+            next_page = None
+        print(next_page)
 
 data = {
     "Name": mobiles,
@@ -46,56 +69,56 @@ data = {
 
 df = pd.DataFrame(data=data)
 df.to_excel("mobile.xlsx")
-for i in range(100):
-    Driver.get(links[i])
-    Driver.implicitly_wait(3)
-    try:
-        price.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='price']")).text)
-    except:
-        price.append("N/A")
-
-    print(price)
-
-    try:
-        memory.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='internalmemory']")).text)
-    except:
-        memory.append("N/A")
-
-    print(memory)
-
-    try:
-        o_s.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='os']")).text)
-    except:
-        o_s.append("N/A")
-
-    print(o_s)
-
-    try:
-        battery.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='batdescription1']")).text)
-    except:
-        battery.append("N/A")
-
-    print(battery)
-
-    try:
-        colors.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='colors']")).text)
-    except:
-        colors.append("N/A")
-
-    print(colors)
-
-
-Data = {
-    "Price": price,
-    "Color": colors,
-    "Memory": memory,
-    "OS": o_s,
-    "Battery": battery,
-}
-
-
-Df = pd.DataFrame(data=Data)
-Df.to_excel("spec.xlsx")
+# for i in range(100):
+#     Driver.get(links[i])
+#     Driver.implicitly_wait(3)
+#     try:
+#         price.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='price']")).text)
+#     except:
+#         price.append("N/A")
+#
+#     print(price)
+#
+#     try:
+#         memory.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='internalmemory']")).text)
+#     except:
+#         memory.append("N/A")
+#
+#     print(memory)
+#
+#     try:
+#         o_s.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='os']")).text)
+#     except:
+#         o_s.append("N/A")
+#
+#     print(o_s)
+#
+#     try:
+#         battery.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='batdescription1']")).text)
+#     except:
+#         battery.append("N/A")
+#
+#     print(battery)
+#
+#     try:
+#         colors.append((Driver.find_element(by=By.XPATH, value="//td[@data-spec='colors']")).text)
+#     except:
+#         colors.append("N/A")
+#
+#     print(colors)
+#
+#
+# Data = {
+#     "Price": price,
+#     "Color": colors,
+#     "Memory": memory,
+#     "OS": o_s,
+#     "Battery": battery,
+# }
+#
+#
+# Df = pd.DataFrame(data=Data)
+# Df.to_excel("spec.xlsx")
 
 Driver.close()
 Driver.quit()
