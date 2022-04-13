@@ -5,28 +5,24 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 Driver = webdriver.Firefox()
-celebs = ['Pervez Musharraf', 'Chaudhry Pervaiz Elahi', 'Zulfikar Ali Bhutto']
 Driver.maximize_window()
 Driver.get('https://www.forbes.com/powerful-people/list/#tab:overall')
-time.sleep(3)
-Driver.execute_script("window.scrollTo(0,500)")
-time.sleep(2)
-Driver.execute_script("window.scrollTo(500,1000)")
-time.sleep(2)
+Driver.implicitly_wait(5)
+Driver.execute_script("window.scrollTo(0,1000)")
 Driver.execute_script("window.scrollTo(1000,1500)")
-time.sleep(2)
 Driver.execute_script("window.scrollTo(1500,2000)")
-time.sleep(2)
 Driver.execute_script("window.scrollTo(1500,document.body.scrollHeight)")
 time.sleep(2)
-input1 = Driver.find_elements(by=By.XPATH, value="//td[@class='name']/a[@class='exit_trigger_set']")
+celebs_1 = Driver.find_elements(by=By.XPATH, value="//td[@class='name']/a[@class='exit_trigger_set']")
+celebs = ['Pervez Musharraf', 'Chaudhry Pervaiz Elahi', 'Zulfikar Ali Bhutto']
 
-for i in range(len(input1) - 1):
-    celebs.append(input1[i].text)
+for i in range(len(celebs_1) - 1):
+    celebs.append(celebs_1[i].text)
 
 Driver.get('https://www.imdb.com/list/ls027763872/')
 actors = Driver.find_elements(by=By.XPATH, value="//h3[@class='lister-item-header']/a")
 print(len(actors))
+
 for g in range(len(actors)):
     celebs.append(actors[g].text)
 
@@ -41,14 +37,12 @@ for i in range(len(celebs)):
     search_box = Driver.find_element(by=By.XPATH, value="//input[@class='gLFyf gsfi']")
     search_box.clear()
     search_box.send_keys(celebs[i])
-    time.sleep(2)
     search = Driver.find_element(by=By.XPATH, value="//span[@class='z1asCe MZy1Rb']")
     search.click()
     time.sleep(2)
     images = Driver.find_element(by=By.XPATH, value="/html/body/div[7]/div/div[4]/div/div[1]/div/div[1]/div/div[2]/a")
     images.click()
-    images_2 = Driver.find_elements(by=By.XPATH,
-                                    value="//div[@class='bRMDJf islir']/img")
+    images_2 = Driver.find_elements(by=By.XPATH, value="//div[@class='bRMDJf islir']/img")
     try:
         for j in range(21):
             src = images_2[j].get_attribute('src')
