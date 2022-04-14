@@ -24,14 +24,12 @@ sign_in_button = Driver.find_element_by_xpath('//*[@type="submit"]')
 sign_in_button.click()
 time.sleep(0.5)
 
-Driver.get('https:www.google.com')
-
-search_query = Driver.find_element_by_name('q')
-search_query.send_keys('site:linkedin.com/in/ AND "python developer" AND "London"')
-
+search_box = Driver.find_element(by=By.XPATH, value="//input[@class='gLFyf gsfi']")
+search_box.clear()
+search_box.send_keys('site:linkedin.com/in/ AND "python developer" AND "London"')
+search = Driver.find_element(by=By.XPATH, value="//span[@class='z1asCe MZy1Rb']")
+search.click()
 time.sleep(0.5)
-
-search_query.send_keys(Keys.RETURN)
 time.sleep(10)
 
 linkedin_urls = Driver.find_elements(by=By.XPATH, value="//div[@class='yuRUbf']/a")

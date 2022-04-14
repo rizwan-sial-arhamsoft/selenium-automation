@@ -1,6 +1,11 @@
+"""
+This module is to scrap images of a list of celebrities
+or any other personals given the names or the names are
+being scrapped too.
+"""
+
 import time
 import urllib.request
-import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -13,7 +18,8 @@ Driver.execute_script("window.scrollTo(1000,1500)")
 Driver.execute_script("window.scrollTo(1500,2000)")
 Driver.execute_script("window.scrollTo(1500,document.body.scrollHeight)")
 time.sleep(2)
-celebs_1 = Driver.find_elements(by=By.XPATH, value="//td[@class='name']/a[@class='exit_trigger_set']")
+celebs_1 = Driver.find_elements(by=By.XPATH,
+                                value="//td[@class='name']/a[@class='exit_trigger_set']")
 celebs = ['Pervez Musharraf', 'Chaudhry Pervaiz Elahi', 'Zulfikar Ali Bhutto']
 
 for i in range(len(celebs_1) - 1):
@@ -40,7 +46,8 @@ for i in range(len(celebs)):
     search = Driver.find_element(by=By.XPATH, value="//span[@class='z1asCe MZy1Rb']")
     search.click()
     time.sleep(2)
-    images = Driver.find_element(by=By.XPATH, value="/html/body/div[7]/div/div[4]/div/div[1]/div/div[1]/div/div[2]/a")
+    images = Driver.find_element(by=By.XPATH,
+                                 value="/html/body/div[7]/div/div[4]/div/div[1]/div/div[1]/div/div[2]/a")
     images.click()
     images_2 = Driver.find_elements(by=By.XPATH, value="//div[@class='bRMDJf islir']/img")
     try:

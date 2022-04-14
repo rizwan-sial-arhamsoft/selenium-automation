@@ -22737,3 +22737,32 @@ JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_
 ###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
 
 1649762706364	Marionette	INFO	Stopped listening on port 45027
+1649918381560	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilePo25J1"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1649918382665	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilePo25J1/search.json.mozlz4", (void 0)))
+1649918385185	Marionette	INFO	Listening on port 45081
+1649918385300	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://i.forbesimg.com/scripts/combined/js/globallazy.ac14a4566782bf93552d1ffdd74f6c33a94141bf.js, line 1: unreachable code after return statement
+JavaScript warning: https://www.forbes.com/c3650cdf-216a-4ba2-80b0-9d6c540b105e58d2670b-ea0f-484e-b88c-0e2c1499ec9bd71e4b42-8570-44e3-89b6-845326fa43b6, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://eus.rubiconproject.com/usync.js, line 4: SecurityError: The operation is insecure.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/LJGn0i2Pg8yG-wzimFR5htSsDE5oolsrGkll4HQxngw.js line 1 > eval line 1432 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/LJGn0i2Pg8yG-wzimFR5htSsDE5oolsrGkll4HQxngw.js line 1 > eval line 7750 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/LJGn0i2Pg8yG-wzimFR5htSsDE5oolsrGkll4HQxngw.js line 1 > eval line 5428 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Reply_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+1649918416954	Marionette	INFO	Stopped listening on port 45081
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
