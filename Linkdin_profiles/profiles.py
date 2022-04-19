@@ -94,57 +94,87 @@ title_s = []
 about_s = []
 experience_s = []
 education_s = []
-
+COUNT = 0
 for url in urls:
-    Driver.get(url)
-    time.sleep(5)
-    name = Driver.find_element(by=By.XPATH, value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div['
-                                                  '2]/div[2]/div[1]/div[1]/h1')
-    name_s.append(name.text)
-    title = Driver.find_element(by=By.XPATH,
-                                value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div['
-                                      '2]/div[2]/div[1]/div[2]')
-    title_s.append(title.text)
+    if COUNT == 5:
+        break
+    COUNT = COUNT + 1
     try:
-        about = Driver.find_element(by=By.XPATH,
-                                    value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[2]/div['
-                                          '3]/div/div/div/span[1]')
-        about_s.append(about.text)
+        Driver.get(url)
+        time.sleep(5)
+        try:
+            name = Driver.find_element(by=By.XPATH,
+                                       value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div['
+                                             '2]/div[2]/div[1]/div[1]/h1')
+
+        except:
+            name_s.append("None")
+        try:
+            title = Driver.find_element(by=By.XPATH,
+                                        value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div['
+                                              '2]/div[2]/div[1]/div[2]')
+
+        except:
+            title_s.append("None")
+        try:
+            about = Driver.find_element(by=By.XPATH,
+                                        value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[2]/div['
+                                              '3]/div/div/div/span[1]')
+            about_s.append(about.text)
+        except:
+            about_s.append("None")
+        Driver.execute_script("window.scrollTo(0,1700)")
+        try:
+            education = Driver.find_elements(by=By.XPATH,
+                                             value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section['
+                                                   '5]/div[3]/ul/li/div/div[2]/div[1]/a/div/span/span[1]')
+            detail = Driver.find_elements(by=By.XPATH,
+                                          value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section['
+                                                '6]/div[3]/ul/li[1]/div/div[2]/div/a/span[1]/span[1]')
+            ex_title = []
+            ex_organization = []
+            edu_institute = []
+            edu_program = []
+            for i in range(len(detail)):
+                try:
+                    edu_institute.append(education[i].text)
+                except:
+                    edu_institute.append("None")
+                try:
+                    edu_program.append(detail[i].text)
+                except:
+                    edu_program.append("None")
+
+            education = {
+                "Institute": edu_institute,
+                "Program": edu_program
+            }
+            education_s.append(education)
+        except:
+            education_s.append("None")
+        try:
+            experience_title = Driver.find_elements(by=By.XPATH, value='/html/body/div[6]/div[3]/div/div/div['
+                                                                       '2]/div/div/main/section[5]/div[3]/ul/li/div/div['
+                                                                       '2]/div[1]/div[1]/div/span/span[1]')
+            # org = Driver.find_elements(by=By.XPATH, value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section['
+            #                                               '5]/div[3]/ul/li/div/div[2]/div[1]/div[1]/span[1]/span[1]')
+
+            for i in range(len(experience_title)):
+                try:
+                    ex_title.append(experience_title[i].text)
+                except:
+                    ex_title.append("None")
+                # ex_organization.append(org[i].text)
+
+            experience = {
+                "Title": ex_title,
+                # "Organization": ex_organization
+            }
+            experience_s.append(experience)
+        except:
+            experience_s.append("None")
     except:
-        about_s.append(None)
-    Driver.execute_script("window.scrollTo(0,1700)")
-    education = Driver.find_elements(by=By.XPATH, value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section['
-                                                        '5]/div[3]/ul/li/div/div[2]/div[1]/a/div/span/span[1]')
-    detail = Driver.find_elements(by=By.XPATH, value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section['
-                                                     '6]/div[3]/ul/li[1]/div/div[2]/div/a/span[1]/span[1]')
-    ex_title = []
-    ex_organization = []
-    edu_institute = []
-    edu_program = []
-    for i in range(len(detail)):
-        edu_institute.append(education[i].text)
-        edu_program.append(detail[i].text)
-
-    education = {
-        "Institute": edu_institute,
-        "Program": edu_program
-    }
-    education_s.append(education)
-    experience_title = Driver.find_elements(by=By.XPATH, value='/html/body/div[6]/div[3]/div/div/div['
-                                                               '2]/div/div/main/section[5]/div[3]/ul/li/div/div['
-                                                               '2]/div[1]/div[1]/div/span/span[1]')
-    org = Driver.find_elements(by=By.XPATH, value='/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section['
-                                                  '5]/div[3]/ul/li/div/div[2]/div[1]/div[1]/span[1]/span[1]')
-
-    for i in range(len(experience_title)):
-        ex_title.append(experience_title[i].text)
-        ex_organization.append(org[i].text)
-
-    experience = {
-        "Title": ex_title,
-        "Organization": ex_organization
-    }
-    experience_s.append(experience)
+        pass
 
 Data = {
     "Name": name_s,
@@ -153,8 +183,8 @@ Data = {
     "Education": education_s,
     "Experience": experience_s
 }
-df = pd.DataFrame(data=Data)
-df.to_excel("Scraped_CV.xlsx")
-
+# df = pd.DataFrame(data=Data)
+# df.to_excel("Scraped_CV.xlsx")
+print(Data)
 Driver.close()
 Driver.quit()
